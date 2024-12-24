@@ -1,6 +1,6 @@
-:root {
-  interpolate-size: allow-keywords; /* Allows transition between height: auto and values */
-}
+/* :root {
+  interpolate-size: allow-keywords;
+} */
 .offcanvas.offcanvas-end {
   --bs-offcanvas-width: 600px;
 }
@@ -11,7 +11,7 @@
 
 /* Specifik kod för link-list */
 .link-list {
-  --scale: 1.1;
+  --scale: 1.05;
   --text-color: #feefbe;
   --border-color: #ffc100; /* Set by fetch! */
   --texture-opacity: 0.2;
@@ -23,38 +23,49 @@
   --bg-rotation: -15deg;
   --easing: linear(0, 1 37.8%, 0.883 44.2%, 0.855 47.1%, 0.846 50%, 0.853 52.7%, 0.875 55.5%, 1 65.5%, 0.967 69.4%, 0.957 73.1%, 0.964 76.5%, 1 84.5%, 0.993 89.3%, 1);
   --link-transition-time: 0.5s;
-}
-.link-list {
   user-select: none;
+  .link-wrapper {
+    --link-bg-image: url('https://www.youtube.com/s/desktop/d3411c39/img/favicon_144x144.png'); /* Set by fetch! */
+    transition: all calc(var(--link-transition-time)*1.5) var(--easing);
+    width: var(--link-width);
+    height: var(--link-height);
+    border: 2px solid var(--border-color);
+  }
+  .link-wrapper:hover {
+    scale: var(--scale);
+    transition: all var(--link-transition-time) var(--easing);
+    transform-origin: right;
+  }
+  .link-wrapper::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: var(--bg-zoom-to-cover);
+    height: var(--bg-zoom-to-cover);
+    background-size: var(--bg-size);
+    background-repeat: repeat;
+    transform: rotate(var(--bg-rotation));
+    transform-origin: center;
+    z-index: -1;
+    filter: blur(var(--texture-blur));
+    opacity: var(--texture-opacity);
+  }
+  .link-wrapper::before {
+    background-image: var(--link-bg-image); 
+  }
 }
-div.link-wrapper {
-  --link-bg-image: url('https://www.youtube.com/s/desktop/d3411c39/img/favicon_144x144.png'); /* Set by fetch! */
-  transition: all calc(var(--link-transition-time)*1.5) var(--easing);
-  width: var(--link-width);
-  height: var(--link-height);
-  border: 2px solid var(--border-color);
-}
-.link-wrapper:hover {
-  scale: var(--scale);
-  transition: all var(--link-transition-time) var(--easing);
-}
-.link-wrapper::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: var(--bg-zoom-to-cover);
-  height: var(--bg-zoom-to-cover);
-  background-size: var(--bg-size);
-  background-repeat: repeat;
-  transform: rotate(var(--bg-rotation));
-  transform-origin: center;
-  z-index: -1;
-  filter: blur(var(--texture-blur));
-  opacity: var(--texture-opacity);
-}
-.link-wrapper::before {
-  background-image: var(--link-bg-image); 
+@media (hover: hover) { /* Media query för enheter som har mus */
+  .link-item:not(:hover) > .icon-wrapper i {
+    transform: translateX(-3rem);
+    scale: 0.5;
+    opacity: 0;
+    transform-origin: center;
+    transition: all calc(var(--link-transition-time)*1) cubic-bezier(0.64, 0, 0.78, 0);
+  }
+  .icon-wrapper, .icon-wrapper i {
+    transition: all var(--link-transition-time) var(--easing);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .link-list {
@@ -62,11 +73,13 @@ div.link-wrapper {
   }
 }
 
-/* these two will be unneeded ones links are in database and --link-bg-image is set dynamically */
-.icon2::before {
+
+
+/* these two will not be needed once links are in database and --link-bg-image is set dynamically */
+.link-list .icon2::before {
   background-image: url('https://abs.twimg.com/responsive-web/client-web/icon-ios.77d25eba.png');
 }
-.icon3::before {
+.link-list .icon3::before {
   background-image: url('https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg');
 }
 
