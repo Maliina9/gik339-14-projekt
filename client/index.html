@@ -1,11 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projekt Grupp 14</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <!-- <script defer src="script.js"></script> -->
+  <script defer src="toast.js"></script>
+  <script defer src="form.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 </head>
-<body>
+<body data-bs-theme="dark" class="d-flex align-items-center flex-column vh-100">
+  <h1 class="mt-5">Projekt Grupp 14</h1>
+  <h2 class="mb-3">Länklista</h2>
+
+  <nav class="link-list mw-100">
+    <div class="link-item position-relative d-flex mw-100 my-3">
+      <div class="link-wrapper icon position-relative d-flex justify-content-between align-items-center overflow-hidden rounded-pill">
+        <a href="https://www.youtube.se" target="_blank" class="d-flex w-100 align-items-center justify-content-center text-decoration-none fw-bolder fs-2" aria-label="YouTube"><span class="link-text">YouTube</span></a>
+      </div>
+      <div class="icon-wrapper d-flex flex-column align-items-center position-absolute top-50 right-0 translate-middle-y" style="right: -2rem;">
+        <i class="bi bi-wrench-adjustable-circle icon-edit fs-4" data-bs-toggle="tooltip" data-bs-title="Redigera" aria-label="Redigera"></i>
+        <i class="bi bi-x-circle icon-delete fs-4" data-bs-toggle="tooltip" data-bs-title="Ta bort" aria-label="Ta bort"></i>
+      </div>
+    </div>
+
+    <div class="link-item position-relative d-flex mw-100 my-3">
+      <div class="link-wrapper icon2 position-relative d-flex justify-content-between align-items-center overflow-hidden rounded-pill">
+        <a href="https://www.x.com" target="_blank" class="d-flex w-100 align-items-center justify-content-center text-decoration-none fw-bolder fs-2" aria-label="X"><span class="link-text">X</span></a>
+      </div>
+      <div class="icon-wrapper d-flex flex-column align-items-center position-absolute top-50 right-0 translate-middle-y" style="right: -2rem;">
+        <i class="bi bi-wrench-adjustable-circle icon-edit fs-4" data-bs-toggle="tooltip" data-bs-title="Redigera" aria-label="Redigera"></i>
+        <i class="bi bi-x-circle icon-delete fs-4" data-bs-toggle="tooltip" data-bs-title="Ta bort" aria-label="Ta bort"></i>
+      </div>
+    </div>
   
+    <div class="link-item position-relative d-flex mw-100 my-3">
+      <div class="link-wrapper icon3 position-relative d-flex justify-content-between align-items-center overflow-hidden rounded-pill">
+        <a href="https://www.linkedin.se" target="_blank" class="d-flex w-100 align-items-center justify-content-center text-decoration-none fw-bolder fs-2" aria-label="LinkedIn"><span class="link-text">LinkedIn</span></a>
+      </div>
+      <div class="icon-wrapper d-flex flex-column align-items-center position-absolute top-50 right-0 translate-middle-y" style="right: -2rem;">
+        <i class="bi bi-wrench-adjustable-circle icon-edit fs-4" data-bs-toggle="tooltip" data-bs-title="Redigera" aria-label="Redigera"></i>
+        <i class="bi bi-x-circle icon-delete fs-4" data-bs-toggle="tooltip" data-bs-title="Ta bort" aria-label="Ta bort"></i>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+  </script> <!-- flytta till .js efter att länkarna skapats med fetch -->
+  
+  
+    
+
+  <button class="btn btn-primary position-absolute top-0 end-0 m-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+    <i class="bi bi-wrench-adjustable"></i>&nbsp;Administrera länkar
+  </button>
+  <div class="offcanvas offcanvas-end offcanvas-wider" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Administrera länkar</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <form class="row g-3" id="linkForm">
+        <!-- ID fält (Disabled) -->
+        <div class="form-floating col-12">
+          <input type="text" class="form-control non-selectable" id="idInput" placeholder="ID" disabled>
+          <label for="idInput">ID</label>
+        </div>
+        
+        <!-- Namn fält -->
+        <div class="form-floating col-12">
+          <input type="text" class="form-control" id="nameInput" placeholder="Name" required>
+          <label for="nameInput">Namn</label>
+        </div>
+        
+        <!-- URL fält -->
+        <div class="form-floating col-12">
+          <input type="url" class="form-control" id="urlInput" placeholder="URL" required>
+          <label for="urlInput">URL</label>
+        </div>
+        
+        <!-- Färg fält -->
+        <div class="form-floating col-12">
+          <select class="form-select" id="colorSelect" required>
+            <option selected disabled>Välj färg</option>
+            <!-- alternativ från form.js -->
+          </select>
+          <label for="colorSelect">Färg</label>
+        </div>
+        
+        <!-- Ikon URL fält -->
+        <div class="form-floating col-12">
+          <input type="url" class="form-control" id="iconUrlInput" placeholder="Icon URL">
+          <label for="iconUrlInput">Icon URL</label>
+        </div>
+        
+        <!-- Submit Button -->
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="button" class="btn btn-primary" style="float: right" id="liveToastBtn">Testa toast</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <!-- <img src="..." class="rounded me-2" alt="..."> -->
+      <i class="bi bi-hand-thumbs-up-fill"></i>
+      <strong class="me-auto">&nbsp;Toastie</strong>
+      <small>Just now</small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Hello, world! This is a toast message.
+    </div>
+  </div>
+</div>
 </body>
 </html>
