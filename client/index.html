@@ -15,9 +15,10 @@
 </head>
 <body data-bs-theme="dark" class="d-flex align-items-center flex-column vh-100">
   <img src="./g14.jpg" class="mw-100 rounded" alt="Projekt Grupp 14 banner">
-  <!-- <h1 class="mt-4">Projekt Grupp 14</h1> -->
   <h2 class="mt-4 mb-3">Länklista</h2>
 
+
+  <!-- Länklistan -->
   <nav class="link-list mw-100 user-select-none">
     <div class="link-item position-relative d-flex mw-100 my-3" link-data-id="001">
       <div class="link-wrapper icon position-relative d-flex justify-content-between align-items-center overflow-hidden rounded">
@@ -49,20 +50,20 @@
       </div>
     </div>
   </nav>
+  
 
-  <script>
+  <!-- flytta till .js efter att länkarna skapats med fetch, i slutet efter att länkarna finns i DOM -->
+  <!-- Tooltips på Redigera/Ta bort knapparna -->
+  <script> 
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-  </script> <!-- flytta till .js efter att länkarna skapats med fetch -->
+  </script>
   
   
-    
+  <!-- OffCanvas för formuläret -->
   <button class="btn btn-primary position-absolute top-0 end-0 m-2 shrinkable-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
   <i class="bi bi-wrench-adjustable"></i><span class="btn-text">&nbsp;Administrera länkar</span></button>
 
-  <!-- <button class="btn btn-primary position-absolute top-0 end-0 m-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-    <i class="bi bi-wrench-adjustable"></i>&nbsp;Administrera länkar
-  </button> -->
   <div class="offcanvas offcanvas-end offcanvas-wider" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasRightLabel">Administrera länkar</h5>
@@ -87,7 +88,7 @@
         <div class="form-floating col-12">
           <select class="form-select" id="colorSelect" required>
             <option selected disabled>Välj färg</option>
-            <!-- alternativ från form.js -->
+            <!-- alternativ hämtas från form.js -->
           </select>
           <label for="colorSelect">Färg</label>
         </div>
@@ -101,25 +102,28 @@
         <!-- Submit Button -->
         <div class="col-12">
           <button type="submit" class="btn btn-primary">Submit</button>
+          <!-- Knapp för att testa toast, ta bort när toasts görs automatiskt -->
           <button type="button" class="btn btn-primary" style="float: right" id="liveToastBtn">Testa toast</button>
         </div>
       </form>
     </div>
   </div>
 
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-  <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-      <!-- <img src="..." class="rounded me-2" alt="..."> -->
-      <i class="bi bi-hand-thumbs-up-fill"></i>
-      <strong class="me-auto">&nbsp;Toastie</strong>
-      <small>Just now</small>
-      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body">
-      Hello, world! This is a toast message.
+  
+  <!-- Toast för meddelanden -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <!-- <img src="..." class="rounded me-2" alt="..."> -->
+        <i class="bi bi-hand-thumbs-up-fill"></i>
+        <strong class="me-auto">&nbsp;Toastie</strong>
+        <small>Just now</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Hello, world! This is a toast message.
+      </div>
     </div>
   </div>
-</div>
 </body>
 </html>

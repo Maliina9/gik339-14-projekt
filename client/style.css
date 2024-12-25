@@ -68,7 +68,7 @@
     transform-origin: left;
     transition: all calc(var(--link-transition-time)*1) cubic-bezier(0.64, 0, 0.78, 0), opacity 0.5s cubic-bezier(0.64, 0, 0.78, 0);
   }
-  .icon-wrapper, .icon-wrapper i {
+  .icon-wrapper i {
     transition: all var(--link-transition-time) var(--easing);
   }
 
