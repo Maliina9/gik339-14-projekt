@@ -1,3 +1,8 @@
+:root {
+  interpolate-size: allow-keywords;
+  --easing: linear(0, 1 37.8%, 0.883 44.2%, 0.855 47.1%, 0.846 50%, 0.853 52.7%, 0.875 55.5%, 1 65.5%, 0.967 69.4%, 0.957 73.1%, 0.964 76.5%, 1 84.5%, 0.993 89.3%, 1);
+  --transition-time: 0.5s;
+}
 .offcanvas.offcanvas-end {
   --bs-offcanvas-width: 600px;
 }
@@ -18,7 +23,6 @@
   --bg-zoom-to-cover: 200%;
   --bg-size: 5%;
   --bg-rotation: -15deg;
-  --easing: linear(0, 1 37.8%, 0.883 44.2%, 0.855 47.1%, 0.846 50%, 0.853 52.7%, 0.875 55.5%, 1 65.5%, 0.967 69.4%, 0.957 73.1%, 0.964 76.5%, 1 84.5%, 0.993 89.3%, 1);
   --link-transition-time: 0.5s;
   user-select: none;
   .link-wrapper {
@@ -56,6 +60,7 @@
   --border-color: #0d6efd;
 }
 @media (hover: hover) { /* Media query för enheter som har mus */
+  /* Länklista, göm ikoner som default */
   .link-item:not(:hover) > .icon-wrapper i {
     transform: translateX(-4rem);
     scale: 0.2;
@@ -66,13 +71,34 @@
   .icon-wrapper, .icon-wrapper i {
     transition: all var(--link-transition-time) var(--easing);
   }
+
+  /* Administrera länkar knapp, krymp som default */
+  .shrinkable-btn {
+    overflow: hidden;
+  }
+  .shrinkable-btn .btn-text {
+    perspective: 40rem;
+    display: inline-block;
+    white-space: nowrap;
+    transition: all var(--transition-time) var(--easing);
+    width: 0;
+  }
+  .shrinkable-btn:not(:hover) .btn-text {
+    opacity: 0;
+  }  
+  .shrinkable-btn:hover .btn-text {
+    opacity: 1;
+    width: auto;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .link-list {
     --link-transition-time: 0s; /* Stäng av animationer vid reduced motion */
   }
+  :root {
+    --transition-time: 0s;
+  }
 }
-
 
 
 /* these two will not be needed once links are in database and --link-bg-image is set dynamically */
