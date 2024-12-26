@@ -101,9 +101,11 @@
         
         <!-- Submit Button -->
         <div class="col-12">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Skicka</button>
+          <button type="reset" class="btn btn-primary" onclick='showToast("Poof!", "Allt är borta (som planerat)!")'>Rensa</button>
           <!-- Knapp för att testa toast, ta bort när toasts görs automatiskt -->
-          <button type="button" class="btn btn-primary" style="float: right" id="liveToastBtn">Testa toast</button>
+          <!-- <button type="button" class="btn btn-primary" style="float: right" id="liveToastBtn">Testa toast</button> -->
+          <button type="button" class="btn btn-primary" style="float: right" onclick='showToast("Du har meddelande!", "Formuläret har sparats framgångsrikt!")'>Testa toast</button>
         </div>
       </form>
     </div>
@@ -111,12 +113,11 @@
 
   
   <!-- Toast för meddelanden -->
-  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div class="toast-container position-fixed top-50 end-0 p-3">
     <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
-        <!-- <img src="..." class="rounded me-2" alt="..."> -->
-        <i class="bi bi-hand-thumbs-up-fill"></i>
-        <strong class="me-auto">&nbsp;Toastie</strong>
+        <i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;
+        <strong class="me-auto">Toastie</strong>
         <small>Just now</small>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>

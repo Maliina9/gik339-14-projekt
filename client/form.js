@@ -1,4 +1,4 @@
-linkForm.addEventListener("submit", hanteraSubmit, true);
+linkForm.addEventListener("submit", hanteraSubmit, false);
 function hanteraSubmit(e) {
   e.preventDefault();
   console.log("Submit");
