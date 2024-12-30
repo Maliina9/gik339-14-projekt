@@ -15,4 +15,20 @@ server
     next();
   });
 
-  
+  server.get('/users', (req, res) => {
+    const db = new sqlite3.Database('gik339-14-projekt.db');
+    const sql = 'SELECT * FROM users';
+    
+    db.all(sql, (err, rows) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.send(rows);
+        });
+
+        db.close();
+    });
+
+    server.listen(3000, () => {
+        console.log('Server running on port 3000');
+    });
