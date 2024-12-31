@@ -15,8 +15,8 @@ server
     next();
   });
 
-  // Här använder vi GET för att att hämta alla users
-  server.get('/users', (req, res) => {
+// Här använder vi GET för att att hämta alla users
+server.get('/users', (req, res) => {
     const db = new sqlite3.Database('gik339-14-projekt.db');
     const sql = 'SELECT * FROM users';
     
@@ -25,26 +25,28 @@ server
             res.status(500).send(err);
         } else {
             res.send(rows);
-        };
-
-        db.close();
+        }
     });
 
+    db.close();
+});
+
     // Här skapar vi en ny user och då använder vi POST
-    server.post('/users', (req, res) => {
-        const db = new sqlite3.Database('gik339-14-projekt.db');
-        const sql = 'INSERT INTO users (firstName, lastName, username, color) VALUES (?, ?, ?, ?)';
-        const { firstName, lastName, username, color } = req.body;  
+server.post('/users', (req, res) => {
+    const db = new sqlite3.Database('gik339-14-projekt.db');
+    const sql = 'INSERT INTO users (firstName, lastName, username, color) VALUES (?, ?, ?, ?)';
+    const { firstName, lastName, username, color } = req.body;  
 
-        db.run(sql, [firstName, lastName, username, color], (err) => {
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                res.send('Användare skapad lyckad');
-            }
-        });
+    db.run(sql, [firstName, lastName, username, color], (err) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.send('Användare skapad lyckad');
+        }
+    });
 
-        db.close();
+    db.close();
+});
 
     // Här uppdaterar vi en user och då använder vi PUT
 server.put ('/users/:id', (req, res) => {
@@ -59,8 +61,9 @@ server.put ('/users/:id', (req, res) => {
         } else {
             res.send('Användare uppdaterad lyckad');
         }
+    });
 
-        db.close();
+    db.close();
 });
 
 // Nu ska vi kunna ta bort användare
@@ -80,6 +83,6 @@ server.delete('/users/:id', (req, res) => {
     db.close();
 });
 
-    server.listen(3000, () => {
-        console.log('Server running on port 3000');
+server.listen(3000, () => {
+    console.log('Server running on port 3000');
 });
