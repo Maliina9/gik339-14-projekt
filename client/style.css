@@ -9,9 +9,6 @@
 }
 
 
-
-
-
 /* Specifik kod för link-list */
 .link-list {
   --scale: 1.05;
@@ -21,13 +18,9 @@
   --texture-blur: 2px;
   --link-width: 300px;
   --link-height: 70px;
-  --bg-zoom-to-cover: 200%;
-  --bg-size: 5%;
-  --bg-rotation: -15deg;
   --link-transition-time: 0.5s;
   user-select: none;
   .link-wrapper {
-    --link-bg-image: url('https://www.youtube.com/s/desktop/d3411c39/img/favicon_144x144.png'); /* Set by fetch! */
     transition: all calc(var(--link-transition-time)*1.5) var(--easing);
     width: var(--link-width);
     height: var(--link-height);
@@ -43,18 +36,11 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: var(--bg-zoom-to-cover);
-    height: var(--bg-zoom-to-cover);
-    background-size: var(--bg-size);
-    background-repeat: repeat;
-    transform: rotate(var(--bg-rotation));
-    transform-origin: center;
+    background: #222222;
+    background: linear-gradient(15deg, rgba(51,51,51,1) 60%, rgba(255,193,0,0.3) 100%);
+    width: 100%;
+    height: 100%;
     z-index: -1;
-    filter: blur(var(--texture-blur));
-    opacity: var(--texture-opacity);
-  }
-  .link-wrapper::before {
-    background-image: var(--link-bg-image); 
   }
 }
 [data-bs-theme="light"] .link-list {
@@ -100,14 +86,3 @@
     --transition-time: 0s;
   }
 }
-
-
-/* these two will not be needed once links are in database and --link-bg-image is set dynamically */
-.link-list .icon2::before {
-  background-image: url('https://abs.twimg.com/responsive-web/client-web/icon-ios.77d25eba.png');
-}
-.link-list .icon3::before {
-  background-image: url('https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg');
-}
-
-
