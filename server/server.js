@@ -22,7 +22,7 @@ server.get('/links', (req, res) => {
         if (err) {
             res.status(500).send(err);
         } else {
-            res.send(rows[0]);
+            res.send(rows);
         }
     });
 
