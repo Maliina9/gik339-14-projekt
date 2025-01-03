@@ -98,4 +98,29 @@ server.delete('/links/:id', (req, res) => {
 
 server.listen(3000, () => {
     console.log('Server running on port 3000');
-});
+    // Testa databasen och kolla så 'links' finns
+    const db = new sqlite3.Database('gik339-14-projekt.db', (err) => {
+        if (err) {
+        console.error('Fel vid koppling till databasen', err.message);
+        } else {
+        console.log('Databaskoppling lyckad.');
+    
+        // Skapa 'links' table on den inte finns
+        db.run(`
+            CREATE TABLE IF NOT EXISTS links (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            url TEXT NOT NULL,
+            color TEXT NOT NULL
+            )
+        `, (err) => {
+            if (err) {
+            console.error('Fel vid koll så "links" tabellen finns:', err.message);
+            } else {
+            console.log('Tabellen "links" är redo.');
+            }
+        });
+        }
+        });
+        db.close();
+    });
