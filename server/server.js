@@ -1,6 +1,4 @@
 // Here ya go Maliina :) 
-//Tack åke VAFAN JAG HITTAR INTE { EXPECTED. vafdfffnananananananna}
-
 const express = require('express');
 const server = express(); 
 const sqlite3 = require('sqlite3').verbose();
@@ -15,8 +13,8 @@ server
     next();
   });
 
-// Här använder vi GET för att att hämta alla users
-server.get('/users', (req, res) => {
+// Här använder vi GET för att att hämta alla länkar
+server.get('/links', (req, res) => {
     const db = new sqlite3.Database('gik339-14-projekt.db');
     const sql = 'SELECT * FROM users';
     
@@ -31,7 +29,7 @@ server.get('/users', (req, res) => {
     db.close();
 });
 
-    // Här skapar vi en ny user och då använder vi POST
+    // Här skapar vi en ny länk och då använder vi POST
 server.post('/users', (req, res) => {
     const db = new sqlite3.Database('gik339-14-projekt.db');
     const sql = 'INSERT INTO users (firstName, lastName, username, color) VALUES (?, ?, ?, ?)';
@@ -48,7 +46,7 @@ server.post('/users', (req, res) => {
     db.close();
 });
 
-    // Här uppdaterar vi en user och då använder vi PUT
+    // Här uppdaterar vi en länk och då använder vi PUT
 server.put ('/users/:id', (req, res) => {
     const db = new sqlite3.Database('gik339-14-projekt.db');
     const sql = 'UPDATE users SET firstName = ?, lastName = ?, username = ?, color = ?, WHERE id = ?';
@@ -66,7 +64,7 @@ server.put ('/users/:id', (req, res) => {
     db.close();
 });
 
-// Nu ska vi kunna ta bort användare
+// Nu ska vi kunna ta bort länk
 server.delete('/users/:id', (req, res) => {
     const db = new sqlite3.Database('gik339-14-projekt.db');
     const sql = 'DELETE FROM users WHERE id =?';
