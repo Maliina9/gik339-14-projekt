@@ -16,8 +16,23 @@ server
 
 // Här använder vi GET för att att hämta alla länkar
 server.get('/links', (req, res) => {
-    const sql = 'SELECT * FROM users';
-    
+    const sql = 'SELECT * FROM links';
+
+    db.all(sql, (err, rows) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.send(rows[0]);
+        }
+    });
+
+    db.close();
+});
+// Här hämtar vi enbart EN länk om man så vill.
+server.get('/links/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = `SELECT * FROM links WHERE id= ${id}`;
+
     db.all(sql, (err, rows) => {
         if (err) {
             res.status(500).send(err);
@@ -32,9 +47,9 @@ server.get('/links', (req, res) => {
     // Här skapar vi en ny länk och då använder vi POST
 server.post('/links', (req, res) => {
     const sql = 'INSERT INTO links (name, url, color) VALUES (?, ?, ?)';
-    const {name, url, color } = req.body;  
+    const link = req.body;  
 
-    db.run(sql, [name, url, color], (err) => {
+    db.run(sql, Object.values(link), (err) => {
         if (err) {
             console.log(err);
             res.status(500).send(err);
@@ -48,16 +63,11 @@ server.post('/links', (req, res) => {
 
     // Här uppdaterar vi en länk och då använder vi PUT
 server.put ('/links/:id', (req, res) => {
-    const sql = 'UPDATE links SET id = ?, name = ?, url = ?, color = ?, WHERE id = ?';
-    const bodyData = req.body; 
-    const id = bodyData.id;
-    const user ={
-        name: bodyData.name,
-        url: bodyData.url,
-        color: bodyData.color
-    };
+    const id = req.params.id;
+    const sql = `UPDATE links SET name = ?, url = ?, color = ?, WHERE id = ${id}`;
+    const link = req.body; 
 
-    db.run(sql, [link.id, link.name, link.url], (err) => {
+    db.run(sql, Object.values(link), (err) => {
         if (err) {
             console.log(err);
             res.status(500).send(err);
@@ -71,10 +81,10 @@ server.put ('/links/:id', (req, res) => {
 
 // Nu ska vi kunna ta bort länk
 server.delete('/links/:id', (req, res) => {
-    const sql = 'DELETE FROM links WHERE id =?';
     const id  = req.params.id;
-
-    db.run(sql, [id], (err) => {
+    const sql = `DELETE FROM links WHERE id =${id}`;
+    
+    db.run(sql, (err) => {
         if (err) {
             console.log(err);
             res.status(500).send(err);
