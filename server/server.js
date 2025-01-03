@@ -2,7 +2,7 @@
 const express = require('express');
 const server = express(); 
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('gik339-14-projekt.db');
+const dbfile = 'gik339-14-projekt.db';
 
 server
   .use(express.json())
@@ -16,6 +16,7 @@ server
 
 // Här använder vi GET för att att hämta alla länkar
 server.get('/links', (req, res) => {
+    const db = new sqlite3.Database(dbfile);
     const sql = 'SELECT * FROM links';
 
     db.all(sql, (err, rows) => {
@@ -30,6 +31,7 @@ server.get('/links', (req, res) => {
 });
 // Här hämtar vi enbart EN länk om man så vill.
 server.get('/links/:id', (req, res) => {
+    const db = new sqlite3.Database(dbfile);
     const id = req.params.id;
     const sql = `SELECT * FROM links WHERE id= ${id}`;
 
@@ -46,6 +48,7 @@ server.get('/links/:id', (req, res) => {
 
     // Här skapar vi en ny länk och då använder vi POST
 server.post('/links', (req, res) => {
+    const db = new sqlite3.Database(dbfile);
     const sql = 'INSERT INTO links (name, url, color) VALUES (?, ?, ?)';
     const link = req.body;  
 
@@ -63,6 +66,7 @@ server.post('/links', (req, res) => {
 
     // Här uppdaterar vi en länk och då använder vi PUT
 server.put ('/links/:id', (req, res) => {
+    const db = new sqlite3.Database(dbfile);
     const id = req.params.id;
     const sql = `UPDATE links SET name = ?, url = ?, color = ?, WHERE id = ${id}`;
     const link = req.body; 
@@ -81,6 +85,7 @@ server.put ('/links/:id', (req, res) => {
 
 // Nu ska vi kunna ta bort länk
 server.delete('/links/:id', (req, res) => {
+    const db = new sqlite3.Database(dbfile);
     const id  = req.params.id;
     const sql = `DELETE FROM links WHERE id =${id}`;
     
@@ -99,7 +104,7 @@ server.delete('/links/:id', (req, res) => {
 server.listen(3000, () => {
     console.log('Server running on port 3000');
     // Testa databasen och kolla så 'links' finns
-    const db = new sqlite3.Database('gik339-14-projekt.db', (err) => {
+    const db = new sqlite3.Database(dbfile, (err) => {
         if (err) {
         console.error('Fel vid koppling till databasen', err.message);
         } else {
