@@ -2,6 +2,7 @@
 const express = require('express');
 const server = express(); 
 const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('gik339-14-projekt.db');
 
 server
   .use(express.json())
@@ -15,14 +16,13 @@ server
 
 // Här använder vi GET för att att hämta alla länkar
 server.get('/links', (req, res) => {
-    const db = new sqlite3.Database('gik339-14-projekt.db');
     const sql = 'SELECT * FROM users';
     
     db.all(sql, (err, rows) => {
         if (err) {
             res.status(500).send(err);
         } else {
-            res.send(rows);
+            res.send(rows[0]);
         }
     });
 
@@ -30,16 +30,16 @@ server.get('/links', (req, res) => {
 });
 
     // Här skapar vi en ny länk och då använder vi POST
-server.post('/users', (req, res) => {
-    const db = new sqlite3.Database('gik339-14-projekt.db');
-    const sql = 'INSERT INTO users (firstName, lastName, username, color) VALUES (?, ?, ?, ?)';
-    const { firstName, lastName, username, color } = req.body;  
+server.post('/links', (req, res) => {
+    const sql = 'INSERT INTO links (name, url, color) VALUES (?, ?, ?)';
+    const {name, url, color } = req.body;  
 
-    db.run(sql, [firstName, lastName, username, color], (err) => {
+    db.run(sql, [name, url, color], (err) => {
         if (err) {
+            console.log(err);
             res.status(500).send(err);
         } else {
-            res.send('Användare skapad lyckad');
+            res.send('Länk skapad');
         }
     });
 
@@ -47,17 +47,22 @@ server.post('/users', (req, res) => {
 });
 
     // Här uppdaterar vi en länk och då använder vi PUT
-server.put ('/users/:id', (req, res) => {
-    const db = new sqlite3.Database('gik339-14-projekt.db');
-    const sql = 'UPDATE users SET firstName = ?, lastName = ?, username = ?, color = ?, WHERE id = ?';
-    const { firstName, lastName, username, color } = req.body;
-    const { id } = req.params;
+server.put ('/links/:id', (req, res) => {
+    const sql = 'UPDATE links SET id = ?, name = ?, url = ?, color = ?, WHERE id = ?';
+    const bodyData = req.body; 
+    const id = bodyData.id;
+    const user ={
+        name: bodyData.name,
+        url: bodyData.url,
+        color: bodyData.color
+    };
 
-    db.run(sql, [firstName, lastName, username, color, id], (err) => {
+    db.run(sql, [link.id, link.name, link.url], (err) => {
         if (err) {
+            console.log(err);
             res.status(500).send(err);
         } else {
-            res.send('Användare uppdaterad lyckad');
+            res.send('Länk uppdaterad lyckad');
         }
     });
 
@@ -65,16 +70,16 @@ server.put ('/users/:id', (req, res) => {
 });
 
 // Nu ska vi kunna ta bort länk
-server.delete('/users/:id', (req, res) => {
-    const db = new sqlite3.Database('gik339-14-projekt.db');
-    const sql = 'DELETE FROM users WHERE id =?';
-    const { id } = req.params;
+server.delete('/links/:id', (req, res) => {
+    const sql = 'DELETE FROM links WHERE id =?';
+    const id  = req.params.id;
 
     db.run(sql, [id], (err) => {
         if (err) {
+            console.log(err);
             res.status(500).send(err);
         } else {
-            res.send('Användare borttagen lyckad');
+            res.send('Länk borttagen lyckad');
         }
     });
 
