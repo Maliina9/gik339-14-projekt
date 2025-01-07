@@ -1,15 +1,14 @@
 const url =  "http://localhost:3000/links";
 let currentLinkID = null;
 
-
+//kör linkfetch när sidan laddat
 window.addEventListener('load', LinkFetch);
 
+//hämtar alla länkar i databasen och skickar dem till html så att dessa kan ses av clienten
 function LinkFetch() {
  fetch(url)
   .then((result) => result.json())
    .then((links) => {
-    // console.log(links);
-    
    if (links.length > 0) {
    let html =``
    links.forEach((link) => {
@@ -28,8 +27,6 @@ function LinkFetch() {
   
  });
 
-
-
  const linkContainer = document.getElementById('linklist');
  linkContainer.innerHTML = '';
  linkContainer.insertAdjacentHTML('beforeend', html)
@@ -37,12 +34,11 @@ function LinkFetch() {
  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
  }
  });
-
 }
 
-// console.log(linkForm);
+// 
 linkForm.addEventListener("submit", handleSubmit);
-
+//fånga upp text/val i formuläret och skicka dessa till Db alt updatera db om ett id skickas med finns
 function handleSubmit(e) {
   console.log(linkForm);
     e.preventDefault();
@@ -51,26 +47,22 @@ function handleSubmit(e) {
       url: '',
       color: '',
     } 
-  
     serverLinkObject.name = linkForm.nameInput.value
     serverLinkObject.url = linkForm.urlInput.value
     serverLinkObject.color = linkForm.colorSelect.value
    
     let request;
- 
-    console.log(serverLinkObject)
+    //tittar om id finns och använder Put alt Post beroende på om id finns 
     if (currentLinkID) {
-      // Append currentLinkID to the URL
       request = new Request(`${url}/${currentLinkID}`, {
-        method: "PUT", // or your desired HTTP method
+        method: "PUT", 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(serverLinkObject)
       });
       showToast("Modifierare", "Användaren är nu justerad!");
     } else {
-      // Use the base URL
       request = new Request(url, {
-        method: "POST", // or your desired HTTP method
+        method: "POST", 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(serverLinkObject)
       });
@@ -84,41 +76,24 @@ function handleSubmit(e) {
       linkForm.reset();
     });
 }
+
+//Hämtar datan för länken med det valda id:et och placerar dessa i formuläret
 function editLink(element) {
-  // Find the parent .link-item
   const linkItem = element.closest(".link-item");
-
-  // Get the link-data-id
   currentLinkID = linkItem.getAttribute("link-data-id");
-
-  // Extract the text and URL from the link
   const linkText = linkItem.querySelector(".link-text").textContent.trim();
   const linkURL = linkItem.querySelector("a").getAttribute("href");
-
-  // Get the border color from the style attribute
   const borderColor = linkItem.style.getPropertyValue("--border-color").trim();
-
-  // Populate the form fields
   document.getElementById("nameInput").value = linkText;
   document.getElementById("urlInput").value = linkURL;
-
-  // Set the color in the color select field
   const colorSelect = document.getElementById("colorSelect");
   Array.from(colorSelect.options).forEach((option) => {
     if (option.value === borderColor) {
       option.selected = true;
     }
   });
-
-  // Log the current link ID (for debugging)
-  console.log("Current Link ID:", currentLinkID);
 }
-
-const delBtn = document.querySelector(".icon-delete")
-
-
-
-
+//tar bort ett valt object från databasen
 function deleteLink(id) {
   console.log('del', id);
   fetch(`${url}/${id}`, { method: 'DELETE' }).then((result) => LinkFetch());
