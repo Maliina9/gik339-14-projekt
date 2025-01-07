@@ -68,7 +68,7 @@ server.post('/links', (req, res) => {
 server.put ('/links/:id', (req, res) => {
     const db = new sqlite3.Database(dbfile);
     const id = req.params.id;
-    const sql = `UPDATE links SET name = ?, url = ?, color = ?, WHERE id = ${id}`;
+    const sql = `UPDATE links SET name = ?, url = ?, color = ? WHERE id = ${id}`;
     const link = req.body; 
 
     db.run(sql, Object.values(link), (err) => {
