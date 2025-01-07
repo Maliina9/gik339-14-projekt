@@ -1,7 +1,7 @@
 linkForm.addEventListener("submit", hanteraSubmit, false);
 function hanteraSubmit(e) {
   e.preventDefault();
-  console.log("Submit");
+  console.log("submit");
 }
 
 const fargVal = [
