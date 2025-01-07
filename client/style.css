@@ -7,6 +7,9 @@
 .offcanvas.offcanvas-end {
   --bs-offcanvas-width: 600px;
 }
+body {
+  background: radial-gradient(circle, #334150, #101113 60%);
+}
 
 
 /* Specifik kod för link-list */
@@ -16,13 +19,15 @@
   --border-color: #ffc100; /* Set by fetch! */
   --texture-opacity: 0.2;
   --texture-blur: 2px;
-  --link-width: 300px;
+  --link-width: 500px;
   --link-height: 70px;
   --link-transition-time: 0.5s;
   user-select: none;
   .link-wrapper {
     transition: all calc(var(--link-transition-time)*1.5) var(--easing);
-    width: var(--link-width);
+    width: 350px;
+    max-width: 100%;
+    overflow: auto;
     height: var(--link-height);
     border: 2px solid var(--border-color);
   }
@@ -40,9 +45,12 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    /* background: var(--border-color); */
+    background: var(--border-color);
     opacity: 0.5;
-    background: linear-gradient(15deg, var(--border-color) 60%, rgba(255,193,0,1) 100%);
+    --gradient-color: rgba(255, 208, 0, 0);
+    --gradient-edge: 20%;
+    --gradient-edge2: calc(100% - var(--gradient-edge));
+    background: linear-gradient(0deg, var(--gradient-color) 0%, var(--border-color) var(--gradient-edge),var(--border-color) var(--gradient-edge2), var(--gradient-color) 100%);
     width: 100%;
     height: 100%;
     z-index: -1;
