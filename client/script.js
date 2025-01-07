@@ -18,7 +18,7 @@ function LinkFetch() {
      <div
      class="link-item position-relative d-flex mw-100 my-3" link-data-id="${link.id}" style="--border-color: ${link.color};";">
     <div class="link-wrapper  position-relative d-flex justify-content-between align-items-center overflow-hidden rounded">
-      <a href="${link.url}" target="_blank" class="d-flex w-100 align-items-center justify-content-center text-decoration-none fw-bolder fs-2" aria-label="${link.name}"><span class="link-text">${link.name}</span></a>
+      <a href="${link.url}" target="_blank" class="d-flex w-100 align-items-center justify-content-center text-decoration-none fw-bolder fs-2" aria-label="${link.name}"><span class="link-text shadow">${link.name}</span></a>
     </div>
     <div class="icon-wrapper d-flex flex-column align-items-center position-absolute top-50 .right-0 translate-middle-y" style="right: -2rem;">
       <i onclick="editLink(this)" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"><i class="bi bi-wrench-adjustable-circle icon-edit fs-4 link-warning link-opacity-50-hover" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Redigera" aria-label="Redigera"></i></i>

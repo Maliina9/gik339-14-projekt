@@ -26,6 +26,10 @@
     height: var(--link-height);
     border: 2px solid var(--border-color);
   }
+  .link-text {
+    color: #ffffff;
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); */
+  }
   .link-wrapper:hover {
     scale: var(--scale);
     transition: all var(--link-transition-time) var(--easing);
