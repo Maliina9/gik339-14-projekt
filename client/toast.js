@@ -24,18 +24,3 @@ function showToast(headerText, bodyText) {
   const toast = new bootstrap.Toast(toastElement);
   toast.show();
 }
-
-/*
-Förslag meddelanden
-Ny länk: 
-Tada!
-Ny länk på plats!
-
-Uppdatera:
-Fixat!
-Uppgraderat och klart!
-
-Länk borttagen:
-Borta med vinden!
-Länk till {länknamn} har tagits bort!
-*/

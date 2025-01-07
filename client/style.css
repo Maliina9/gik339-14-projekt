@@ -12,7 +12,7 @@
 /* Specifik kod för link-list */
 .link-list {
   --scale: 1.05;
-  --text-color: #feefbe;
+  --text-color: #fff;
   --border-color: #ffc100; /* Set by fetch! */
   --texture-opacity: 0.2;
   --texture-blur: 2px;
@@ -36,8 +36,9 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    background: #222222;
-    background: linear-gradient(15deg, rgba(51,51,51,1) 60%, rgba(255,193,0,0.3) 100%);
+    /* background: var(--border-color); */
+    opacity: 0.5;
+    background: linear-gradient(15deg, var(--border-color) 60%, rgba(255,193,0,1) 100%);
     width: 100%;
     height: 100%;
     z-index: -1;
