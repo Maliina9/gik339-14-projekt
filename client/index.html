@@ -22,14 +22,6 @@
   </nav>
 </div>
 
-  <!-- flytta till .js efter att länkarna skapats med fetch, i slutet efter att länkarna finns i DOM -->
-  <!-- Tooltips på Redigera/Ta bort knapparna -->
-  <script> 
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-  </script>
-  
-  
   <!-- OffCanvas för formuläret -->
   <button class="btn btn-primary position-absolute top-0 end-0 m-2 shrinkable-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
   <i class="bi bi-wrench-adjustable"></i><span class="btn-text">&nbsp;Administrera länkar</span></button>
