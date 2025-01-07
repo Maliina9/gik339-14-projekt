@@ -16,8 +16,7 @@
   <img src="./g14.jpg" class="mw-100 rounded" alt="Projekt Grupp 14 banner">
   <h2 class="mt-4 mb-3">Länklista</h2>
 
-
-  <!-- Länklistan -->
+  <!-- Länklistan, här hamnar alla fetchade länkar -->
     <nav id="linklist"  class="link-list mw-100 user-select-none">
   </nav>
 </div>
@@ -49,8 +48,8 @@
         <!-- Färg fält -->
         <div class="form-floating col-12">
           <select class="form-select" id="colorSelect" required>
-            <option selected disabled>Välj färg</option>
-            <!-- alternativ hämtas från form.js -->
+            <option selected disabled value="">Välj färg</option>
+            <!-- färg alternativ hämtas från form.js -->
           </select>
           <label for="colorSelect">Färg</label>
         </div>
@@ -59,14 +58,11 @@
         <div class="col-12">
           <button type="submit" class="btn btn-primary">Skicka</button>
           <button type="reset" class="btn btn-primary" onclick='currentLinkID = null; showToast("Poof!", "Allt är borta (som planerat)!")'>Rensa</button>
-          <!-- Knapp för att testa toast, ta bort när toasts görs automatiskt -->
-          <!-- <button type="button" class="btn btn-primary" style="float: right" id="liveToastBtn">Testa toast</button> -->
           <button type="button" class="btn btn-primary" style="float: right" onclick='showToast("Du har meddelande!", "Formuläret har sparats framgångsrikt!")'>Testa toast</button>
         </div>
       </form>
     </div>
   </div>
-
   
   <!-- Toast för meddelanden -->
   <div class="toast-container position-fixed top-50 end-0 p-3">
@@ -74,14 +70,39 @@
       <div class="toast-header">
         <i class="bi bi-hand-thumbs-up-fill"></i>&nbsp;
         <strong class="me-auto">Toastie</strong>
-        <small>Just now</small>
+        <small>Precis nu</small>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">
-        Hello, world! This is a toast message.
+        Hello, world! This is a toast message. <!-- Meddelande texten sätts dynamiskt via anrop -->
       </div>
     </div>
   </div>
+
+    <!-- Bekräfta borttagning Modal -->
+  <!-- <div class="modal show" style="display: block;" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true"> -->
+  <div class="modal hide" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Bekräfta borttagning</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Stäng"></button>
+        </div>
+        <div class="modal-body d-flex justify-center align-items-center">
+          <i class="bi bi-question-octagon fs-1 p-3 text-danger-emphasis"></i>
+          <div>
+            <p class="m-0 fs-5">Är du säker på att du vill ta bort "<span id="deleteName"></span>"?</p>
+            <p class="fs-6 fst-italic text-secondary-emphasis">Detta kommer att ta bort länken direkt, och det finns ingen ångra.</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Avbryt</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Ta bort</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script defer src="script.js"></script> 
 </body>
 </html>

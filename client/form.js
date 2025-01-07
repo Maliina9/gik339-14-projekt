@@ -1,9 +1,4 @@
-linkForm.addEventListener("submit", hanteraSubmit, false);
-function hanteraSubmit(e) {
-  e.preventDefault();
-  console.log("submit");
-}
-
+// Tillgängliga färger för val i formuläret
 const fargVal = [
   { name: "Röd", value: "red" },
   { name: "Blå", value: "blue" },
