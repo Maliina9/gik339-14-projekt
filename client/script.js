@@ -1,5 +1,5 @@
 const url =  "http://localhost:3000/links";
-let    currentLinkID = null;
+let currentLinkID = null;
 
 
 window.addEventListener('load', LinkFetch);
@@ -8,7 +8,7 @@ function LinkFetch() {
  fetch(url)
   .then((result) => result.json())
    .then((links) => {
-    console.log(links);
+    // console.log(links);
     
    if (links.length > 0) {
    let html =``
@@ -33,12 +33,14 @@ function LinkFetch() {
  const linkContainer = document.getElementById('linklist');
  linkContainer.innerHTML = '';
  linkContainer.insertAdjacentHTML('beforeend', html)
+ const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
  }
  });
 
 }
 
-console.log(linkForm);
+// console.log(linkForm);
 linkForm.addEventListener("submit", handleSubmit);
 
 function handleSubmit(e) {
@@ -64,6 +66,7 @@ function handleSubmit(e) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(serverLinkObject)
       });
+      showToast("Modifierare", "Användaren är nu justerad!");
     } else {
       // Use the base URL
       request = new Request(url, {
@@ -71,7 +74,11 @@ function handleSubmit(e) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(serverLinkObject)
       });
+      showToast("Pålagd", "Ny användare!");
     }
+    console.log(currentLinkID);
+    currentLinkID = null;
+    console.log(currentLinkID);
     fetch(request).then((response) => {
       LinkFetch();
       linkForm.reset();
