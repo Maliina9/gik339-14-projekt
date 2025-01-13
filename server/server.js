@@ -1,4 +1,3 @@
-// Here ya go Maliina :) 
 const express = require('express');
 const server = express(); 
 const sqlite3 = require('sqlite3').verbose();
@@ -29,7 +28,7 @@ server.get('/links', (req, res) => {
 
     db.close();
 });
-// Här hämtar vi enbart EN länk om man så vill.
+// Här hämtar vi enbart EN länk om man så vill. Men vi hämtar inte en länk från servern men här är koden ifall man vill
 // server.get('/links/:id', (req, res) => {
 //     const db = new sqlite3.Database(dbfile);
 //     const id = req.params.id;
