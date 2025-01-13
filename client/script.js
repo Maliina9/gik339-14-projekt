@@ -60,14 +60,14 @@ function handleSubmit(e) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(serverLinkObject)
     });
-    showToast("Modifierare", "Användaren är nu justerad!");
+    showToast("Modifierare", "Länken är nu justerad!");
   } else {
     request = new Request(url, {
       method: "POST", 
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(serverLinkObject)
     });
-    showToast("Pålagd", "Ny användare!");
+    showToast("Pålagd", "Ny länk har lagts till!");
   }
   currentLinkID = null;
   
