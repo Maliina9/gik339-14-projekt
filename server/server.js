@@ -29,22 +29,6 @@ server.get('/links', (req, res) => {
 
     db.close();
 });
-// Här hämtar vi enbart EN länk om man så vill.
-// server.get('/links/:id', (req, res) => {
-//     const db = new sqlite3.Database(dbfile);
-//     const id = req.params.id;
-//     const sql = `SELECT * FROM links WHERE id= ${id}`;
-
-//     db.all(sql, (err, rows) => {
-//         if (err) {
-//             res.status(500).send(err);
-//         } else {
-//             res.send(rows[0]);
-//         }
-//     });
-
-//     db.close();
-// });
 
     // Här skapar vi en ny länk och då använder vi POST
 server.post('/links', (req, res) => {
